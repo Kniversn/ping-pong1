@@ -6,6 +6,7 @@ FPS = 60
 display.set_caption('4')
 game = True
 finish = False
+background = 'без названия.png'
 class gameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_speed):
         super().__init__()
