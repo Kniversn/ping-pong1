@@ -10,9 +10,13 @@ speed_bally = 3
 game = True
 finish = False
 font.init()
+chet1 = 3
+chet2 = 3
 font = font.Font(None, 35)
 lose = font.render('Player1 lose :(', True, (180, 0, 0))
 lose2 = font.render('Player2 lose :(', True, (180, 0, 0))
+lives1 = font.render(str(chet1), True, (180, 0, 0))
+lives2 = font.render(str(chet2), True, (180, 0, 0))
 
 background = transform.scale(image.load('fon.png'), (700, 500))
 class gameSprite(sprite.Sprite):
@@ -61,6 +65,8 @@ while game:
      
     if not finish:
         window.blit(background, (0, 0))
+        window.blit(lives1, (100, 100))
+        window.blit(lives2, (600, 100))
         rocket1.update_l()
         rocket2.update_r()
         ball.update()
@@ -72,12 +78,18 @@ while game:
         if sprite.collide_rect(rocket1, ball) or sprite.collide_rect(rocket2, ball):
             speed_ballx *= -1
         if ball.rect.x < 0:
-            finish =  True
-            window.blit(lose, (200, 200))
+            chet1 -= 1
+            window.blit(lives1, (100, 100))
+            if chet1 <= 0:
+                finish =  True
+                window.blit(lose, (200, 200))
             
         if ball.rect.x > 700:
-            finish = True
-            window.blit(lose2, (200, 200))
+            chet2 -= 1
+            window.blit(lives2, (100, 600))
+            if chet2 <= 0:
+                finish = True
+                window.blit(lose2, (200, 200))
         if ball.rect.y < 50:
             speed_bally *= -1
     
@@ -93,7 +105,6 @@ while game:
         finish = False
     display.update()
     clock.tick(FPS)
-
 
 
 
